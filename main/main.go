@@ -3,7 +3,6 @@ package main
 import (
 	"log"
 	"used_timer/timer"
-	// "used_timer/timer"
 )
 
 func main() {
