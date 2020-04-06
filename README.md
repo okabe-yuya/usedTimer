@@ -14,8 +14,8 @@ UsedTimer(中古の時計 -> よく壊れる)ということで命名
 
 ### golangが未インストールでDockerがinstallされている場合
 docker imageをbuild
-> cd used_timer
-> $ docker build -t golang/used_timer .
+> cd used_timer  
+> $ docker build -t golang/used_timer .  
 
 buildしたcontainerを起動
 > $ docker run golang/used_timer
