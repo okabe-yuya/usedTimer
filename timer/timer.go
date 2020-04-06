@@ -9,7 +9,7 @@ import (
 // 仕様について
 // 1. 指定した周期毎に" "というメッセージをchannel経由で送信する
 // 2. 指定した周期毎に時間切れとなり、errorを返して実行loopをbreakする
-func RevivalTimer(iterTimeInt, breakTimeInt int, ptc chan *Protocol) {
+func UsedTimer(iterTimeInt, breakTimeInt int, ptc chan *Protocol) {
 	// int型をtime.Duration型へ変換(second)
 	iterTime := time.Duration(iterTimeInt) * time.Second
 	breakTime := time.Duration(breakTimeInt) * time.Second
@@ -47,7 +47,7 @@ func Scheduler(iterTimeInt, breakTimeInt, revivalNum int) {
 	ch := CreateProtocolChannel()
 	// 何度も再起動させたいので簡略化のため無名関数を採用
 	receiver := func() error {
-		// 作成したrevivalTimerからのメッセージを受け取るloopを作成
+		// 作成したUsedTimerからのメッセージを受け取るloopを作成
 		for {
 			select {
 			case msg := <-ch:
@@ -66,7 +66,7 @@ func Scheduler(iterTimeInt, breakTimeInt, revivalNum int) {
 	counter := 0
 	for {
 		// goroutineを用いてスレッドを作成
-		go RevivalTimer(iterTimeInt, breakTimeInt, ch)
+		go UsedTimer(iterTimeInt, breakTimeInt, ch)
 		if err := receiver(); err != nil {
 			log.Print("[Main] Restart timer thread. Please wait 3 seconds ...")
 			time.Sleep(3 * time.Second)
